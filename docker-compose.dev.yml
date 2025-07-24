@@ -1,0 +1,37 @@
+version: '3.8'
+
+# Development overrides for docker-compose.yml
+services:
+  api:
+    build:
+      target: development
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+      - ENVIRONMENT=development
+    volumes:
+      - ./apps/api:/app
+      - api_dev_logs:/app/logs
+    command: uvicorn src.main:app --host 0.0.0.0 --port 3333 --reload --log-level debug
+
+  web:
+    build:
+      target: development
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:3333
+    volumes:
+      - ./apps/web:/app
+      - web_dev_node_modules:/app/node_modules
+    command: npm run serve
+
+  # Remove nginx in development (direct access to services)
+  nginx:
+    profiles:
+      - production
+
+volumes:
+  api_dev_logs:
+    driver: local
+  web_dev_node_modules:
+    driver: local

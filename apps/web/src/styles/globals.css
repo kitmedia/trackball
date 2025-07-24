@@ -1,0 +1,209 @@
+/* Global styles for Trackball video analysis platform */
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Video player specific styles */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 1rem;
+  z-index: 20;
+}
+
+/* Tracking visualization styles */
+.tracking-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.player-track {
+  position: absolute;
+  border: 2px solid #4444ff;
+  border-radius: 50%;
+  background: rgba(68, 68, 255, 0.2);
+  pointer-events: none;
+  transition: all 0.1s ease;
+}
+
+.ball-track {
+  position: absolute;
+  border: 2px solid #ff4444;
+  border-radius: 50%;
+  background: rgba(255, 68, 68, 0.3);
+  pointer-events: none;
+  transition: all 0.1s ease;
+}
+
+.event-marker {
+  position: absolute;
+  border: 2px solid #44ff44;
+  border-radius: 4px;
+  background: rgba(68, 255, 68, 0.3);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.event-marker:hover {
+  background: rgba(68, 255, 68, 0.5);
+  transform: scale(1.05);
+}
+
+/* Timeline styles */
+.timeline-container {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.timeline-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.timeline-progress {
+  height: 100%;
+  background: #1976d2;
+  border-radius: 2px;
+  transition: width 0.1s ease;
+}
+
+.timeline-thumb {
+  position: absolute;
+  top: -6px;
+  width: 16px;
+  height: 16px;
+  background: #1976d2;
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.2);
+}
+
+/* Loading states */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #1976d2;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .video-controls {
+    padding: 0.5rem;
+  }
+  
+  .timeline-container {
+    height: 60px;
+    padding: 0.5rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .player-track {
+    border-width: 3px;
+  }
+  
+  .ball-track {
+    border-width: 3px;
+  }
+  
+  .event-marker {
+    border-width: 3px;
+  }
+}
